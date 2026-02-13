@@ -1,0 +1,20 @@
+train_test_split:
+  test_size: 0.2
+  random_state: 42
+
+model:
+  name: random_forest
+
+
+random_forest:
+  n_estimators: 200
+  max_depth: null
+  min_samples_split: 2
+  min_samples_leaf: 1
+
+naive_bayes:
+  alpha: 1.0
+
+
+logistic_regression:
+  max_iter: 1000

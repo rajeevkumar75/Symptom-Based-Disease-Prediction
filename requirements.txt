@@ -1,0 +1,21 @@
+numpy
+pandas
+matplotlib
+seaborn
+scipy
+scikit-learn
+xgboost
+joblib
+gdown
+
+#Data Processing & Validation
+pyyaml
+python-box==6.0.2
+ensure==1.0.2
+#Utilities
+tqdm
+# Logging & Debugging
+loguru
+# Packaging
+setuptools
+# -e .
