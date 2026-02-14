@@ -3,9 +3,17 @@ from src.utils.common import read_yaml, save_yaml
 from src.logger import logger
 
 class Configuration:
-    def __init__(self, config_path: str = "config/config.yaml"):
+    def __init__(
+        self,
+        config_path: str = "config/config.yaml",
+        params_path: str = "config/params.yaml"
+    ):
         self.config_path = config_path
+        self.params_path = params_path
+
         self.config = read_yaml(self.config_path)
+        self.params = read_yaml(self.params_path)
+
         self.artifacts_root = self.config.get("artifacts_root", "artifacts")
 
     # --------------------- Data Ingestion Config ---------------------
@@ -28,6 +36,7 @@ class Configuration:
             "validation_report_path": Path(dv_config.get("validation_report_path", "artifacts/data_validation/validation_report.json"))
         }
 
+
     # --------------------- Data Transformation Config ---------------------
     def get_data_transformation_config(self):
         dt_config = self.config.get("data_transformation", {})
@@ -35,4 +44,15 @@ class Configuration:
             "transformed_dir": Path(dt_config.get("transformed_dir", "artifacts/data_transformation")),
             "cleaned_data_path": Path(dt_config.get("cleaned_data_path", "artifacts/data_transformation/cleaned_data.csv")),
             "label_encoder_path": Path(dt_config.get("label_encoder_path", "artifacts/data_transformation/label_encoder.pkl"))
+        }
+    
+
+    # ---------------- Model Trainer ----------------
+    def get_model_trainer_config(self):
+        mt = self.config.get("model_trainer", {})
+
+        return {
+            "trained_model_dir": Path(mt.get("trained_model_dir", "artifacts/model_trainer")),
+            "model_report_path": Path(mt.get("model_report_path", "artifacts/model_trainer/model_report.yaml")),
+            "params": self.params
         }

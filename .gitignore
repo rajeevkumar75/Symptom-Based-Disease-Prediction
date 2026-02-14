@@ -4,3 +4,5 @@ __pycache__
 .gitkeep
 
 symptom_based_disease_prediction.egg-info/
+
+problem.txt

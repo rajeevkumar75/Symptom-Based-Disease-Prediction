@@ -21,3 +21,10 @@ data_transformation:
   transformed_dir: artifacts/data_transformation
   cleaned_data_path: artifacts/data_transformation/cleaned_data.csv
   label_encoder_path: artifacts/data_transformation/label_encoder.pkl
+
+#for model training
+model_trainer:
+  model_dir: artifacts/model_trainer
+  trained_model_dir: artifacts/model_trainer
+  model_report_path: artifacts/model_trainer/model_report.yaml
+
