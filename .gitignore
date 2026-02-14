@@ -2,3 +2,5 @@ venv/
 logs/
 __pycache__
 .gitkeep
+
+symptom_based_disease_prediction.egg-info/

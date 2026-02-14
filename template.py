@@ -18,6 +18,10 @@ list_of_files = [
     "src/utils/__init__.py",
     "src/utils/common.py",
 
+    #Configuration
+    "src/config/__init__.py",
+    "src/config/configuration.py"
+
     # Components
     "src/components/__init__.py",
     "src/components/data_ingestion.py",
