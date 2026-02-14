@@ -1,19 +1,23 @@
 artifacts_root: artifacts
 
-#for data ingestion
+# For data ingestion
 data_ingestion:
   source_type: google_drive
   gdrive_folder_id: 1zo4eA6ce8xXYr_anl-b9RvqnHViQT1yp
-  file_name: symptom_disease_dataset.csv
+  file_name: symptoms-diseases.csv
 
   artifacts_dir: artifacts
-  raw_data_dir: artifacts/data_ingestion
-  raw_data_path: artifacts/data_ingestion/raw_data.csv
+  raw_data_dir: artifacts/raw_data
+  raw_data_path: artifacts/raw_data/symptoms-diseases.csv
 
-
-#for data validation
+# For data validation
 data_validation:
   target_column: prognosis
-
   validation_dir: artifacts/data_validation
   validation_report_path: artifacts/data_validation/validation_report.json
+
+# For data transformation
+data_transformation:
+  transformed_dir: artifacts/data_transformation
+  cleaned_data_path: artifacts/data_transformation/cleaned_data.csv
+  label_encoder_path: artifacts/data_transformation/label_encoder.pkl

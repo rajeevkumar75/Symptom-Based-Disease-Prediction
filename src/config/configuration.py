@@ -1,49 +1,38 @@
-from dataclasses import dataclass
 from pathlib import Path
-from src.utils.common import read_yaml, create_directories
+from src.utils.common import read_yaml, save_yaml
+from src.logger import logger
 
+class Configuration:
+    def __init__(self, config_path: str = "config/config.yaml"):
+        self.config_path = config_path
+        self.config = read_yaml(self.config_path)
+        self.artifacts_root = self.config.get("artifacts_root", "artifacts")
 
-#fordataingestion
-@dataclass
-class DataIngestionConfig:
-    raw_data_path: Path
-    gdrive_folder_id: str
-    file_name: str
+    # --------------------- Data Ingestion Config ---------------------
+    def get_data_ingestion_config(self):
+        di_config = self.config.get("data_ingestion", {})
+        return {
+            "source_type": di_config.get("source_type"),
+            "gdrive_folder_id": di_config.get("gdrive_folder_id"),
+            "file_name": di_config.get("file_name"),
+            "raw_data_dir": Path(di_config.get("raw_data_dir", "artifacts/raw_data")),
+            "raw_data_path": Path(di_config.get("raw_data_path", "artifacts/raw_data/symptoms-diseases.csv"))
+        }
 
+    # --------------------- Data Validation Config ---------------------
+    def get_data_validation_config(self):
+        dv_config = self.config.get("data_validation", {})
+        return {
+            "target_column": dv_config.get("target_column", "prognosis"),
+            "validation_dir": Path(dv_config.get("validation_dir", "artifacts/data_validation")),
+            "validation_report_path": Path(dv_config.get("validation_report_path", "artifacts/data_validation/validation_report.json"))
+        }
 
-#fordataValidation
-@dataclass
-class DataValidationConfig:
-    target_column: str
-    validation_report_path: Path
-
-
-class ConfigurationManager:
-    def __init__(
-        self,
-        config_filepath: Path = Path("config/config.yaml")
-    ):
-        self.config = read_yaml(config_filepath)
-
-        create_directories([
-            self.config.data_ingestion.artifacts_dir,
-            self.config.data_ingestion.raw_data_dir,
-            self.config.data_validation.validation_dir
-        ])
-
-    def get_data_ingestion_config(self) -> DataIngestionConfig:
-        config = self.config.data_ingestion
-
-        return DataIngestionConfig(
-            raw_data_path=Path(config.raw_data_path),
-            gdrive_folder_id=config.gdrive_folder_id,
-            file_name=config.file_name
-        )
-
-    def get_data_validation_config(self) -> DataValidationConfig:
-        config = self.config.data_validation
-
-        return DataValidationConfig(
-            target_column=config.target_column,
-            validation_report_path=Path(config.validation_report_path)
-        )
+    # --------------------- Data Transformation Config ---------------------
+    def get_data_transformation_config(self):
+        dt_config = self.config.get("data_transformation", {})
+        return {
+            "transformed_dir": Path(dt_config.get("transformed_dir", "artifacts/data_transformation")),
+            "cleaned_data_path": Path(dt_config.get("cleaned_data_path", "artifacts/data_transformation/cleaned_data.csv")),
+            "label_encoder_path": Path(dt_config.get("label_encoder_path", "artifacts/data_transformation/label_encoder.pkl"))
+        }

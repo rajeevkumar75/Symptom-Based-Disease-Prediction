@@ -8,6 +8,7 @@ from pathlib import Path
 from src.logger import logger, CustomException
 
 
+
 def read_yaml(file_path: str):
     """
     Reads YAML file and returns content
@@ -83,3 +84,25 @@ def save_json(path: str, data: dict) -> None:
 
     except Exception as e:
         raise CustomException(e)
+    
+
+def save_yaml(file_path: str, content: dict) -> None:
+    """
+    Save a Python dictionary as a YAML file.
+
+    Args:
+        file_path (str): Path where YAML file will be saved
+        content (dict): Dictionary content to save
+    """
+    try:
+        file_path = Path(file_path)
+        os.makedirs(file_path.parent, exist_ok=True)
+
+        with open(file_path, "w") as yaml_file:
+            yaml.dump(content, yaml_file, default_flow_style=False)
+
+        logger.info(f"YAML file saved successfully at: {file_path}")
+
+    except Exception as e:
+        raise CustomException(e, sys)
+
