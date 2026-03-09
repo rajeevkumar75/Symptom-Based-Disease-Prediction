@@ -8,6 +8,7 @@ xgboost
 joblib
 gdown
 flask
+plotly
 
 #Data Processing & Validation
 pyyaml
