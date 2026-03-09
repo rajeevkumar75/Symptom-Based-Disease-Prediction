@@ -80,17 +80,11 @@ class ModelTrainer:
                     best_model = model
                     best_model_name = model_name
 
-            # Create directories
-            Path(self.trainer_config["model_dir"]).mkdir(parents=True, exist_ok=True)
-
-            # Save best model
-            best_model_path = (
-                Path(self.trainer_config["model_dir"])
-                / self.trainer_config["best_model_name"]
-            )
+            model_dir = Path(self.trainer_config["model_dir"])
+            model_dir.mkdir(parents=True, exist_ok=True)
+            best_model_path = model_dir / self.trainer_config["best_model_name"]
             save_object(best_model_path, best_model)
 
-            # Save metrics
             metrics_path = Path(self.trainer_config["metrics_path"])
             save_json(metrics_path, metrics)
 

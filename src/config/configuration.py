@@ -50,9 +50,11 @@ class Configuration:
     # ---------------- Model Trainer ----------------
     def get_model_trainer_config(self):
         mt = self.config.get("model_trainer", {})
-
+        dt_config = self.get_data_transformation_config()
         return {
-            "trained_model_dir": Path(mt.get("trained_model_dir", "artifacts/model_trainer")),
-            "model_report_path": Path(mt.get("model_report_path", "artifacts/model_trainer/model_report.yaml")),
+            "model_dir": Path(mt.get("model_dir", "artifacts/model_trainer")),
+            "best_model_name": mt.get("best_model_name", "best_model.pkl"),
+            "metrics_path": Path(mt.get("metrics_path", "artifacts/model_trainer/metrics.json")),
+            "cleaned_data_path": Path(dt_config["cleaned_data_path"]),
             "params": self.params
         }

@@ -1,6 +1,7 @@
 venv/
 logs/
 __pycache__
+.venv/
 
 
 symptom_based_disease_prediction.egg-info/

@@ -83,7 +83,7 @@ def save_json(path: str, data: dict) -> None:
         logger.info(f"JSON file saved successfully at: {path}")
 
     except Exception as e:
-        raise CustomException(e)
+        raise CustomException(e, sys)
     
 
 def save_yaml(file_path: str, content: dict) -> None:
